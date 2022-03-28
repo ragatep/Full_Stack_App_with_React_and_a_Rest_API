@@ -6,7 +6,7 @@ function Errors() {
       <h2>Error</h2>
       <p>
         {" "}
-        <strong>Sorry! We just encountered an unexpected error.!</strong>
+        <strong>:(</strong>
       </p>
     </div>
   );

@@ -42,8 +42,8 @@ const DeleteCourse = ({context, history, match}) => {
     }
 
     return (
-        <div className="wrap form--centered">
-            <h2>Are you sure you want to delete This Course?</h2>
+        <div className="wrap">
+            <h2>Are you sure you want to delete this Course?</h2>
             <h2>{course.title}</h2>
             <p>{course.description}</p>
             <form onSubmit={handleDelete}>

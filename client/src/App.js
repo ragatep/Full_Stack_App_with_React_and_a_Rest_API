@@ -53,9 +53,9 @@ export default () => (
         <PrivateRoute exact path="/courses/:id/delete" component={DeleteCourseWithContext} />
         <PrivateRoute exact path="/authenticated" component={AuthWithContext} />
         <Route exact path="/signin" component={UserSignInWithContext} />
-        <Route path="/signup" component={UserSignUpWithContext} />
-        <Route path="/signout" component={UserSignOutWithContext} />
-        <Route path="/forbidden"component={Forbidden} />
+        <Route exact path="/signup" component={UserSignUpWithContext} />
+        <Route exact path="/signout" component={UserSignOutWithContext} />
+        <Route exact path="/forbidden"component={Forbidden} />
         <Route exact path="/notfound" component={NotFound} />
         <Route component={Errors} />
       </Switch>
