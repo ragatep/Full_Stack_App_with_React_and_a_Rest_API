@@ -4,6 +4,7 @@ const DeleteCourse = ({context, history, match}) => {
     const { password, user } = context.authenticatedUser;
     const courseId = Number(match.params.id.slice(1));
     const [course, setCourse] = useState([]);
+    const [errors, setErrors] = useState({validationErrors: []});
 
     useEffect(() => {
         context.data
@@ -13,7 +14,7 @@ const DeleteCourse = ({context, history, match}) => {
             setCourse(course);
 
             if (user.id !== course.userId) {
-                history.push('/forbidden');
+                history.push("/forbidden");
             }
           } else {
             history.push("/notfound");
@@ -29,7 +30,15 @@ const DeleteCourse = ({context, history, match}) => {
       const handleDelete = (e) => {
 
             context.data.deleteCourse(courseId, user.emailAddress, password)
-            history.push("/")
+            .then((errors) => {
+              if (errors.length) {
+                setErrors({
+                  validationErrors: errors,
+                });
+              } else {
+                history.push("/");
+              }
+            })
     }
 
     return (
@@ -43,7 +52,6 @@ const DeleteCourse = ({context, history, match}) => {
             </form>
         </div>
     )
-
 }
 
 export default DeleteCourse;

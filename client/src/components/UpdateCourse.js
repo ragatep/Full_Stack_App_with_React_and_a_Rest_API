@@ -9,7 +9,7 @@ const UpdateCourse = ({ context, history, match }) => {
         materialsNeeded: '',
     });
     const [errors, setErrors] = useState({validationErrors: []});
-    const { title, description, estimatedTime, materialsNeeded} = course
+    const { title, description, estimatedTime, materialsNeeded } = course
     const { password, user } = context.authenticatedUser; // Destructures to get the user's password.
     const courseId = Number(match.params.id.slice(1)); // Course Id.
 

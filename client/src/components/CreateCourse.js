@@ -23,7 +23,7 @@ const CreateCourse = ({ context, history }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         // Adds the authenticated user's user Id to course property.
-        const courseProp = {course, userId: user.id}; 
+        const courseProp = { title, description, estimatedTime, materialsNeeded, userId: user.id }; 
         // Creates a course with the course's properties, user authentication info.
         context.data.createCourse(courseProp, user.emailAddress, password) 
         .then((errors) => {
@@ -38,6 +38,7 @@ const CreateCourse = ({ context, history }) => {
             .catch(error => {
                 console.log(error);
             }) 
+        console.log(courseProp);
     }
     
     return (
@@ -62,9 +63,22 @@ const CreateCourse = ({ context, history }) => {
                 <div className="main--flex">
                     <div>
                         <label htmlFor="title">Course Title</label>
-                        <input type="text" id='title' name='title' onChange={updateCourseProp} value={title} />
+                        <input 
+                            id='title'
+                            name='title'
+                            type="text" 
+                            value={title}  
+                            onChange={updateCourseProp} 
+                            placeholder="Title"
+                            />
                         <label htmlFor="description">Course Description</label>
-                        <textarea id='description' name='description' onChange={updateCourseProp} value={description} />
+                        <textarea 
+                            id='description' 
+                            name='description' 
+                            value={description}
+                            onChange={updateCourseProp} 
+                            placeholder="Course Description"
+                            />
                     </div>
                     <div>
                         <label htmlFor="estimatedTime">Estimated Time</label>
