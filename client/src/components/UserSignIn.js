@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Form from './Form';
 /**
- * Future refactor: change to a function and 
+ * Future refactor: change to a function component and 
  * set and update states with useState and perform
  * side effects with useEffect.
  * https://teamtreehouse.com/library/solution-part-2-usestate-and-usehistory
@@ -22,8 +22,7 @@ export default class UserSignIn extends Component {
     } = this.state;
 
     return (
-      <div className="bounds">
-        <div className="grid-33 centered signin">
+      <div className="form--centered">
           <h1>Sign In</h1>
           <Form 
             cancel={this.cancel}
@@ -32,6 +31,7 @@ export default class UserSignIn extends Component {
             submitButtonText="Sign In"
             elements={() => (
               <React.Fragment>
+                <label htmlFor="emailAddress">Email Address</label>
                 <input 
                   id="emailAddress" 
                   name="emailAddress" 
@@ -39,6 +39,7 @@ export default class UserSignIn extends Component {
                   value={emailAddress} 
                   onChange={this.change} 
                   placeholder="Email Address" />
+                <label htmlFor="password">Password</label>
                 <input 
                   id="password" 
                   name="password"
@@ -51,7 +52,6 @@ export default class UserSignIn extends Component {
           <p>
             Don't have a user account? <Link to="/signup">Click here</Link> to sign up!
           </p>
-        </div>
       </div>
     );
   }

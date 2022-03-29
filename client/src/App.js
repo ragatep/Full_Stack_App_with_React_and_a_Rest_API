@@ -56,7 +56,7 @@ export default () => (
         <Route exact path="/signup" component={UserSignUpWithContext} />
         <Route exact path="/signout" component={UserSignOutWithContext} />
         <Route exact path="/forbidden"component={Forbidden} />
-        <Route exact path="/notfound" component={NotFound} />
+        <Route component={NotFound} />
         <Route component={Errors} />
       </Switch>
     </div>

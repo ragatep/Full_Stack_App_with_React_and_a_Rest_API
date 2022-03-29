@@ -4,7 +4,6 @@ const DeleteCourse = ({context, history, match}) => {
     const { password, user } = context.authenticatedUser;
     const courseId = Number(match.params.id.slice(1));
     const [course, setCourse] = useState([]);
-    const [errors, setErrors] = useState({validationErrors: []});
 
     useEffect(() => {
         context.data
@@ -25,21 +24,14 @@ const DeleteCourse = ({context, history, match}) => {
             history.push("/error");
           }
         });
-      }, [context.data, user.id, history, course.userId, courseId]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, []);
 
       const handleDelete = (e) => {
 
-            context.data.deleteCourse(courseId, user.emailAddress, password)
-            .then((errors) => {
-              if (errors.length) {
-                setErrors({
-                  validationErrors: errors,
-                });
-              } else {
+            context.data.deleteCourse(courseId, user.emailAddress, password);
                 history.push("/");
-              }
-            })
-    }
+      }
 
     return (
         <div className="wrap">

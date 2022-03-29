@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 
 const CreateCourse = ({ context, history }) => {
-
+    /**
+     * I initial wrote the UpdateCourse Component this way initially, 
+     * but decided to use useRef instead.
+     */
     const [course, setCourse] = useState({
         title: '',
         description: '',
@@ -12,8 +15,8 @@ const CreateCourse = ({ context, history }) => {
     const { title, description, estimatedTime, materialsNeeded } = course
     const { password, user } = context.authenticatedUser; // Destructures to get the user's password.
     /**
-     * Uses a functional update, and create a new state based on the previous state
-     * before setting it.
+     * onChange, uses a functional update, and create a new state based on the previous state
+     * before setting it using setCourse().
      * https://reactjs.org/docs/hooks-reference.html#functional-updates
      */
     const updateCourseProp = (e) => {

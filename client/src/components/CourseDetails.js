@@ -5,7 +5,7 @@ import ReactMarkdown from "react-markdown";
 const CourseDetails = ({ context, history, match }) => {
 
     const [course, setCourse] = useState([]);
-    const id = Number(match.params.id.slice(1)); // The value is from the url. '/:'
+    const id = Number(match.params.id); // The value is from the url. '/'
     const { data, authenticatedUser } = context;
     const [author, setAuthor] = useState({
         firstName: '',
@@ -19,7 +19,7 @@ const CourseDetails = ({ context, history, match }) => {
                 if (course) {
                     setCourse(course);
                     setAuthor({
-                        firstName:course.user.firstName,
+                        firstName: course.user.firstName,
                         lastName: course.user.lastName
                     })            
                 } else {

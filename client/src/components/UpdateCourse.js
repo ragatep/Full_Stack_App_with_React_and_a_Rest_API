@@ -1,63 +1,67 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 const UpdateCourse = ({ context, history, match }) => {
-
-    const [course, setCourse] = useState({
-        title: '',
-        description: '',
-        estimatedTime: '',
-        materialsNeeded: '',
-    });
+    // https://reactjs.org/docs/hooks-reference.html#useref
+    const courseTitle = useRef();
+    const courseDescription = useRef();
+    const courseEstimatedTime = useRef();
+    const courseMaterialsNeeded = useRef();
     const [errors, setErrors] = useState({validationErrors: []});
-    const { title, description, estimatedTime, materialsNeeded } = course
     const { password, user } = context.authenticatedUser; // Destructures to get the user's password.
     const courseId = Number(match.params.id.slice(1)); // Course Id.
-
+    console.log(courseId);
+    /**
+     * Calls getCourse() when this component loads,
+     * and retrieves a course using matched id from the url.
+     * Loads the course information. Reroutes the user if the course is not found.
+     * useEffect() only runs once because I didn't define its dependencies.
+     */
     useEffect(() => {
         context.data
-        .getCourse(courseId)
-        .then((course) => {
-          if (course) {
-            setCourse(course); 
-            if (user.id !== course.userId) {
-                /**
-                 * Redirects users if
-                 * the requested course isn't owned by the validated authenticated user.
-                 */  
-                history.push('/forbidden');
-            }
-          } else {
-            history.push("/notfound");
-          }
-        })
-        .catch((error) => {
-          if (error) {
-            history.push("/error");
-          }
-        });
-      }, [context.data, user.id, history, course.userId, courseId]);
+            .getCourse(courseId)
+            .then((course) => {
+                if (course) {      
+                    if (user.id === course.userId) {
+                        courseTitle.current.value = course.title;
+                        courseDescription.current.value = course.description;
+                        courseEstimatedTime.current.value = course.estimatedTime;
+                        courseMaterialsNeeded.current.value = course.materialsNeeded;       
+                    } else { history.push("/forbidden"); }
+                } else { history.push("/notfound"); }
+            })
+            .catch((error) => {
+                if (error) { history.push("/error"); }
+            });
+    }, [context.data, courseId, history, user.id]);
 
-      const updateCourseProp = (e) => {
-        setCourse(prev => ({...prev,[e.target.name]: e.target.value}))
-    }
-   
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Updates a course with the course's Id, properties, user authentication info.
-        context.data.updateCourse(courseId, course, user.emailAddress, password) 
+        // Define the courseDetail with the retrieved values.
+        const courseDetail = {
+            title: courseTitle.current.value,
+            description: courseDescription.current.value,
+            estimatedTime: courseEstimatedTime.current.value,
+            materialsNeeded: courseMaterialsNeeded.current.value,
+            userId: user.id
+        };
+        // Use the matched Id, course detail , and user authentication info to update a course.
+        context.data.updateCourse(
+            courseId,
+            courseDetail,
+            user.emailAddress, password)
         .then((errors) => {
             if (errors.length) {
                 setErrors({
                     validationErrors: errors,
-                }); 
+                });
             } else {
-                history.push(`/courses/:${courseId}`)
+                history.push(`/courses/${courseId}`)
                 console.log('Course Updated Successfully!')
-            } 
+            }
           })
             .catch(error => {
                 console.log(error);
-            }) 
+            })
     }
 
     return (
@@ -65,7 +69,7 @@ const UpdateCourse = ({ context, history, match }) => {
             <h2>Update Course</h2>
             {
                 errors.validationErrors.length > 0
-                ? 
+                ?
                 <div className="validation--errors">
                     <h3>Validation Error</h3>
                     <ul>
@@ -81,19 +85,19 @@ const UpdateCourse = ({ context, history, match }) => {
                 <div className="main--flex">
                     <div>
                         <label htmlFor="title">Course Title</label>
-                        <input type="text" id='title' name='title' onChange={updateCourseProp} value={title} />
+                        <input type="text" id='title' name='title' ref={courseTitle} />
                         <label htmlFor="description">Course Description</label>
-                        <textarea id='description' name='description' onChange={updateCourseProp} value={description} />
+                        <textarea id='description' name='description' ref={courseDescription} />
                     </div>
                     <div>
                         <label htmlFor="estimatedTime">Estimated Time</label>
-                        <input type="text" id="estimatedTime" name='estimatedTime' onChange={updateCourseProp} value={estimatedTime} />
+                        <input type="text" id="estimatedTime" name='estimatedTime' ref={courseEstimatedTime} />
                         <label htmlFor="materialsNeeded">Materials Needed</label>
-                        <textarea id="materialsNeeded" name='materialsNeeded' onChange={updateCourseProp} value={materialsNeeded} />
+                        <textarea id="materialsNeeded" name='materialsNeeded' ref={courseMaterialsNeeded} />
                     </div>
                 </div>
                 <button className="button" type='submit'>Update Course</button>
-                <a href={`/courses/:${courseId}`} className="button button-secondary">Cancel</a>
+                <a href={`/courses/${courseId}`} className="button button-secondary">Cancel</a>
             </form>
         </div>
     )

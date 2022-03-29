@@ -36,7 +36,7 @@ const Courses = ({ context, history }) => {
         <div className='wrap main--grid'>
             {courses.map((course) => {
                 return (
-                    <Link to={`/courses/:${course.id}`} className="course--module course--link" key={course.id}> {/** This key makes sure that the project doesn't get a unique key error message. */}
+                    <Link to={`/courses/${course.id}`} className="course--module course--link" key={course.id}> {/** This key makes sure that the project doesn't get a unique key error message. */}
                     <div className="details">
                     <h3 className="course--title">{course.title}</h3>
                     <h5 className="course--title">{course.estimatedTime}</h5>
