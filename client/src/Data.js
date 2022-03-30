@@ -63,8 +63,10 @@ export default class Data {
     const response = await this.api(`/courses/${id}`, "GET", null);
         if (response.status === 200) {
             return response.json().then(data => data);
+            /*
+             * This is where I was getting hung up on.
+             */ 
         } else if (response.status === 404) {
-          console.log(response.status);
             return response.status;
         } else {
             throw new Error();
