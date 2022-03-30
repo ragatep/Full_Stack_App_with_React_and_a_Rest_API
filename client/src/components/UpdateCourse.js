@@ -8,7 +8,7 @@ const UpdateCourse = ({ context, history, match }) => {
     const courseMaterialsNeeded = useRef();
     const [errors, setErrors] = useState({validationErrors: []});
     const { password, user } = context.authenticatedUser; // Destructures to get the user's password.
-    const courseId = Number(match.params.id.slice(1)); // Course Id.
+    const courseId = Number(match.params.id); // Course Id.
     console.log(courseId);
     /**
      * Calls getCourse() when this component loads,
@@ -20,14 +20,18 @@ const UpdateCourse = ({ context, history, match }) => {
         context.data
             .getCourse(courseId)
             .then((course) => {
-                if (course) {      
-                    if (user.id === course.userId) {
+                if (course === 404) {   
+                    history.push("/notfound");
+                } else {
+                    if (user.id !== course.userId) {
+                        history.push("/forbidden");
+                    } else {
                         courseTitle.current.value = course.title;
                         courseDescription.current.value = course.description;
                         courseEstimatedTime.current.value = course.estimatedTime;
-                        courseMaterialsNeeded.current.value = course.materialsNeeded;       
-                    } else { history.push("/forbidden"); }
-                } else { history.push("/notfound"); }
+                        courseMaterialsNeeded.current.value = course.materialsNeeded;                           
+                    }
+                }
             })
             .catch((error) => {
                 if (error) { history.push("/error"); }

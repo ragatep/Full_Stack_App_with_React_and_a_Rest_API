@@ -2,21 +2,21 @@ import React, { useEffect, useState } from "react";
 
 const DeleteCourse = ({context, history, match}) => {
     const { password, user } = context.authenticatedUser;
-    const courseId = Number(match.params.id.slice(1));
+    const courseId = Number(match.params.id);
     const [course, setCourse] = useState([]);
 
     useEffect(() => {
         context.data
         .getCourse(courseId)
         .then((course) => {
-          if (course) {
-            setCourse(course);
-
-            if (user.id !== course.userId) {
-                history.push("/forbidden");
-            }
+          if (course === 404) {   
+              history.push("/notfound");
           } else {
-            history.push("/notfound");
+              if (user.id !== course.userId) {
+                  history.push("/forbidden");
+              } else {
+                  setCourse(course);                         
+              }
           }
         })
         .catch((error) => {

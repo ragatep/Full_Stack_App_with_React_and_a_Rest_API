@@ -16,25 +16,21 @@ const CourseDetails = ({ context, history, match }) => {
     useEffect(() => {
         data.getCourse(id)
             .then((course) => {
-                if (course) {
+                if(course === 404) {
+                    console.log(course);
+                    history.push("/notfound");
+                } else {
                     setCourse(course);
                     setAuthor({
                         firstName: course.user.firstName,
                         lastName: course.user.lastName
-                    })            
-                } else {
-                    /* Redirects users if 
-                     * the requested course isn't returned from the REST API
-                     */
-                    history.push("/notfound");
-                    }
-                })
-                .catch((error) => {
-                    if (error) {
-                        history.push("/error");
-                    }
-                });
-    }, [data, history, authenticatedUser,id]);
+                    }) 
+                }
+            }).catch (error => {
+                console.error(error);
+                history.push("/error");                
+            })
+    }, [data, history, authenticatedUser, id]);
     
     return (
         <main>
@@ -49,10 +45,10 @@ const CourseDetails = ({ context, history, match }) => {
                     authenticatedUser && authenticatedUser.user.id === course.userId
                     ?
                     <>
-                        <Link to={`/courses/:${course.id}/update`} className="button">
+                        <Link to={`/courses/${course.id}/update`} className="button">
                             Update Course
                         </Link>
-                        <Link to={`/courses/:${course.id}/delete`} className="button">
+                        <Link to={`/courses/${course.id}/delete`} className="button">
                             Delete Course
                         </Link>   
                     </>
@@ -89,7 +85,7 @@ const CourseDetails = ({ context, history, match }) => {
             </form>
             </div>
         </main>
-    )
+    );
 }
 
 export default CourseDetails;
