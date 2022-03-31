@@ -111,6 +111,14 @@ header nav a:hover {
     margin: 0 0 1.5rem 1rem;
     line-height: 1.5;
 }
+.message--detail--title {
+    padding-bottom: .25rem;
+    border-bottom: 1px solid #888;
+    margin: 3rem 0 .5rem;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
 .actions--bar {
     background: #e9e5f0;
     padding: 1rem 0;

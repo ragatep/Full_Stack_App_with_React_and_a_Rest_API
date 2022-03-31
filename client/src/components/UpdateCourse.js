@@ -9,7 +9,6 @@ const UpdateCourse = ({ context, history, match }) => {
     const [errors, setErrors] = useState({validationErrors: []});
     const { password, user } = context.authenticatedUser; // Destructures to get the user's password.
     const courseId = Number(match.params.id); // Course Id.
-    console.log(courseId);
     /**
      * Calls getCourse() when this component loads,
      * and retrieves a course using matched id from the url.
@@ -48,7 +47,7 @@ const UpdateCourse = ({ context, history, match }) => {
             materialsNeeded: courseMaterialsNeeded.current.value,
             userId: user.id
         };
-        // Use the matched Id, course detail , and user authentication info to update a course.
+        // Use the matched Id, course detail, and user authentication info to update a course.
         context.data.updateCourse(
             courseId,
             courseDetail,
@@ -60,7 +59,6 @@ const UpdateCourse = ({ context, history, match }) => {
                 });
             } else {
                 history.push(`/courses/${courseId}`)
-                console.log('Course Updated Successfully!')
             }
           })
             .catch(error => {

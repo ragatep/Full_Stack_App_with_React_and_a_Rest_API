@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 
 const Authenticated =  ({ context  }) => {
-  console.log(context.authenticatedUser);
   const authUser = context.authenticatedUser;
   const [loading, setLoading] = useState(true);
   
@@ -17,8 +16,10 @@ const Authenticated =  ({ context  }) => {
     return (
       <div className="bounds">
         <div className="grid-100">
-          <h1>Hello {authUser.user.firstName} {authUser.user.lastName}.</h1>
-          <h3>You are being redirected to the Courses page. Please wait ...</h3>
+          <h2>Hello {authUser.user.firstName} {authUser.user.lastName}.</h2>
+          <hr></hr>
+          {" "}
+          <p>You are being redirected to the Courses page. Please wait ...</p>
         </div>
       </div>
       );

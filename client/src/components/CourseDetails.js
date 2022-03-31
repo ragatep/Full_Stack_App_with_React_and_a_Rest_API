@@ -56,7 +56,7 @@ const CourseDetails = ({ context, history, match }) => {
                     null
                 }                    
                     <Link to="/" className="button button-secondary">
-                        Return List
+                        Return to List
                     </Link>
                 </div>
             </div>

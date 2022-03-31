@@ -17,7 +17,6 @@ const Courses = ({ context, history }) => {
     useEffect(() => {
         data.getCourses() // Future refactor: change to fetch() or axios.
             .then((courses) => {
-                console.log(courses);
                 setCourses(courses)
             })
             .catch((error) => {

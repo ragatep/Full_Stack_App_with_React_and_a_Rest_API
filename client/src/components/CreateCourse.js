@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const CreateCourse = ({ context, history }) => {
     /**
-     * I initial wrote the UpdateCourse Component this way initially, 
+     * I initial wrote the UpdateCourse Component this way, 
      * but decided to use useRef instead.
      */
     const [course, setCourse] = useState({
@@ -27,7 +27,7 @@ const CreateCourse = ({ context, history }) => {
         e.preventDefault();
         // Adds the authenticated user's user Id to course property.
         const courseProp = { title, description, estimatedTime, materialsNeeded, userId: user.id }; 
-        // Creates a course with the course's properties, user authentication info.
+        // Creates a course with the course's properties and user authentication info.
         context.data.createCourse(courseProp, user.emailAddress, password) 
         .then((errors) => {
             if (errors.length) {
@@ -41,7 +41,6 @@ const CreateCourse = ({ context, history }) => {
             .catch(error => {
                 console.log(error);
             }) 
-        console.log(courseProp);
     }
     
     return (

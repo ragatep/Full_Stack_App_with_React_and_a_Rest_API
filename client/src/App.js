@@ -37,7 +37,6 @@ const DeleteCourseWithContext = withContext(Delete);
 const HeaderWithContext = withContext(Header);
 const UserSignOutWithContext = withContext(UserSignOut);
 
-
 const AuthWithContext = withContext(Authenticated);
 
 export default () => (
