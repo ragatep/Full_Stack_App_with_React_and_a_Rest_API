@@ -6,7 +6,7 @@ I built this client app, the front-end section of a two-part full-stack JavaScri
 
 In addition, this project will require users to create an account and sign in to make changes to the database.
 
-In this project, I used my knowledge of JavaScript and JSX, React Router, setting up basic authentication, and CSS.
+In this project, I used my knowledge of JavaScript and JSX, React Router, setting up basic authentication, and CSS. [See it live!](https://full-stack-app-project-ten-app.herokuapp.com)
 
 ~ryan
  
